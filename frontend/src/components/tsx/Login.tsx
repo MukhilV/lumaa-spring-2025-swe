@@ -29,6 +29,17 @@ const Login: React.FC = () => {
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed', err);
+
+      if (axios.isAxiosError(err) && err.response?.status === 400) {
+        alert('Invalid username or password');    
+        return;
+      }
+
+      if (axios.isAxiosError(err) && err.response?.status === 500) {
+        alert('Internal server error. Please try again later');    
+        return;
+      }
+
     }
   };
 
@@ -37,6 +48,7 @@ const Login: React.FC = () => {
     <>
       <div className='auth-container'>
         <h2>Login</h2>
+        <p>If you are an existing user.</p>
         <input type="text" placeholder="Username"  id="login_username" onChange={(e) => setUsername(e.target.value)} />
         <input type="password" placeholder="Password" id="login_password" onChange={(e) => setPassword(e.target.value)} />
         <button onClick={handleLogin}>Login</button>

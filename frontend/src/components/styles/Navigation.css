@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    justify-content : space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.nav-logo {
+    font-size: 1.5em;
+}
+
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}

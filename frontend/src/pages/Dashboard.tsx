@@ -3,14 +3,15 @@ import axios from "axios";
 import TaskTile from "../components/tsx/TaskTile";
 import UpdateModal from "../components/tsx/UpdateModal";
 import CreateNewTask from "../components/tsx/CreateNewTask";
-import "../styles/styles.css";
+import "./styles/Dashboard.css";  
 import { AuthContext } from "../context/AuthContext";
+import Navigation from "../components/tsx/Navigation";
 
 interface Task {
-  id?: number; // Optional since it's not assigned yet
+  id?: number; 
   title: string;
   description?: string;
-  isComplete: boolean;
+  iscomplete: boolean;
 }
 
 const Dashboard: React.FC = () => {
@@ -92,39 +93,43 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     auth?.logout();
+    sessionStorage.removeItem("userId");
   };
 
   if (loading) return <p>Loading tasks...</p>;
   if (error) return <p className="error">{error}</p>;
 
   return (
-    <div className="dashboard-container">
-      <h2>Task Dashboard</h2>
+  <>
+    <Navigation  onLogin={() => {}} onLogout={handleLogout} onRegister={() => {}} />
+      <div className="dashboard-container">
+        <h2>Task Dashboard</h2>
 
-      {/* Create New Task Button */}
-      <CreateNewTask refreshTasks={fetchTasks} />
+        {/* Create New Task Button */}
+        <CreateNewTask refreshTasks={fetchTasks} />
 
-      {tasks.length === 0 ? (
-        <p>No tasks found.</p>
-      ) : (
-        tasks.map((task) => <TaskTile 
-        key={task.id} 
-        task={task} 
-        onUpdateClick={handleUpdateClick}
-        onDeleteClick={handleDeleteClick} />)
-      )}
+        {tasks.length === 0 ? (
+          <p>No tasks found.</p>
+        ) : (
+          tasks.map((task) => <TaskTile 
+          key={task.id} 
+          task={task} 
+          onUpdateClick={handleUpdateClick}
+          onDeleteClick={handleDeleteClick} />)
+        )}
 
-      <button onClick={handleLogout}> Logout </button>
+        {/* <button onClick={handleLogout}> Logout </button> */}
 
-      {selectedTask && (
-        <UpdateModal
-          task={selectedTask}
-          onClose={handleCloseModal}
-          onSave={handleSave}
-          setTask={(task: Task) => setSelectedTask(task)}
-        />
-      )}
-    </div>
+        {selectedTask && (
+          <UpdateModal
+            task={selectedTask}
+            onClose={handleCloseModal}
+            onSave={handleSave}
+            setTask={(task: Task) => setSelectedTask(task)}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

@@ -35,6 +35,7 @@ const Register: React.FC = () => {
   return (
     <div className="auth-container">
       <h2>Register</h2>
+      <p>If you are a new user.</p>
       <input type="text" placeholder="Username" id="reg_username" onChange={(e) => setUsername(e.target.value)} />
       <input type="password" placeholder="Password" id="reg_password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={handleRegister}>Register</button>
