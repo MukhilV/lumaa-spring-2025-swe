@@ -1,5 +1,6 @@
 import React from "react";
 import Task from "../../pages/Dashboard";
+import "../styles/UpdateModal.css";
 
 interface UpdateModalProps {
   task: Task;
@@ -12,7 +13,7 @@ interface Task {
   id?: number; // Optional since it's not assigned yet
   title: string;
   description?: string;
-  isComplete: boolean;
+  iscomplete: boolean;
 }
 
 const UpdateModal: React.FC<UpdateModalProps> = ({ task, onClose, onSave, setTask }) => {
@@ -36,8 +37,8 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ task, onClose, onSave, setTas
         />
         <label>Status:</label>
         <select
-          value={task.isComplete ? "true" : "false"}
-          onChange={(e) => setTask({ ...task, isComplete: e.target.value === "true" })}
+          value={task.iscomplete ? "true" : "false"}
+          onChange={(e) => setTask({ ...task, iscomplete: e.target.value === "true" })}
           className="input"
         >
           <option value="false">Not Completed</option>

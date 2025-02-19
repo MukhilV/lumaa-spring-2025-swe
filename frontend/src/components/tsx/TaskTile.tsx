@@ -1,10 +1,11 @@
 import React from "react";
+import '../styles/TaskTile.css';
 
 interface Task {
   id?: number;
   title: string;
   description?: string;
-  isComplete: boolean;
+  iscomplete: boolean;
 }
 
 interface TaskTileProps {
@@ -19,7 +20,7 @@ const TaskTile: React.FC<TaskTileProps> = ({ task, onUpdateClick, onDeleteClick 
       <div className="task-info">
         <h3>{task.title}</h3>
         <p>{task.description}</p>
-        <p>Status: {task.isComplete ? "✅ Completed" : "❌ Not Completed"}</p>
+        <p>Status: {task.iscomplete ? "✅ Completed" : "❌ Not Completed"}</p>
       </div>
       <button className="update-btn" onClick={() => onUpdateClick(task)}>
         Update

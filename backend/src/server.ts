@@ -53,10 +53,10 @@ app.post("/tasks", authenticateJWT,  async (req, res) => {
 app.put("/tasks/:id", authenticateJWT,  async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, isComplete } = req.body;
+    const { title, description, iscomplete } = req.body;
     const { rows } = await pool.query(
-      "UPDATE task SET title = $1, description = $2, isComplete = $3 WHERE id = $4 RETURNING *",
-      [title, description, isComplete, id]
+      "UPDATE task SET title = $1, description = $2, iscomplete = $3 WHERE id = $4 RETURNING *",
+      [title, description, iscomplete, id]
     );
     res.json(rows[0]);
   } catch (error) {

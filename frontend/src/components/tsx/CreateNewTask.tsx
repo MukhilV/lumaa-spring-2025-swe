@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import UpdateModal from "./UpdateModal";
-import "../../styles/styles.css";
-// import Task from "../../pages/Dashboard";
+import "../styles/CreateNewTask.css"; 
 
 interface Task {
   id?: number; // Optional since it's not assigned yet
   title: string;
   description?: string;
-  isComplete: boolean;
+  iscomplete: boolean;
 }
 
 const CreateNewTask: React.FC<{ refreshTasks: () => void }> = ({ refreshTasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userId = sessionStorage.getItem("userId") || "0";
-  const [newTask, setNewTask] = useState<Task>({ id: parseInt(userId), title: "", description: "", isComplete: false });
+  const [newTask, setNewTask] = useState<Task>({ id: parseInt(userId), title: "", description: "", iscomplete: false });
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => {
     setIsModalOpen(false);
     
-    setNewTask({ ...newTask,  title: "", description: "", isComplete: false }); // Reset fields
+    setNewTask({ ...newTask,  title: "", description: "", iscomplete: false }); // Reset fields
   };
 
   const handleSave = async () => {

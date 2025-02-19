@@ -5,7 +5,7 @@
       id: { type: "serial", primaryKey: true },
       title: { type: "varchar(255)", notNull: true },
       description: { type: "text", notNull: false },
-      isComplete: { type: "boolean", notNull: true, default: false },
+      iscomplete: { type: "boolean", notNull: true, default: false },
       userId: {
         type: "integer",
         references: "users",
