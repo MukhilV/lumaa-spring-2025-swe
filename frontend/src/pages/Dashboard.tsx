@@ -28,7 +28,15 @@ const Dashboard: React.FC = () => {
   const fetchTasks = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get<Task[]>("http://localhost:5000/tasks", {
+      const userId = sessionStorage.getItem("userId");
+      
+      if (!userId) {
+        setError("User ID not found");
+        setLoading(false);
+        return;
+      }
+
+      const response = await axios.get<Task[]>(`http://localhost:5000/tasks?userId=${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

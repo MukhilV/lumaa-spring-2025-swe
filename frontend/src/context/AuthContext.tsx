@@ -14,7 +14,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) navigate('/login');
+    if (!token) navigate('/home');
   }, [token, navigate]);
 
   const login = (newToken: string) => {
@@ -25,7 +25,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('token');
     setToken(null);
-    navigate('/login');
+    navigate('/home');
   };
 
   return <AuthContext.Provider value={{ token, login, logout }}>{children}</AuthContext.Provider>;

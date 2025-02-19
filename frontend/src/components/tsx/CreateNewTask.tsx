@@ -13,12 +13,14 @@ interface Task {
 
 const CreateNewTask: React.FC<{ refreshTasks: () => void }> = ({ refreshTasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newTask, setNewTask] = useState<Task>({ title: "", description: "", isComplete: false });
+  const userId = sessionStorage.getItem("userId") || "0";
+  const [newTask, setNewTask] = useState<Task>({ id: parseInt(userId), title: "", description: "", isComplete: false });
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setNewTask({ title: "", description: "", isComplete: false }); // Reset fields
+    
+    setNewTask({ ...newTask,  title: "", description: "", isComplete: false }); // Reset fields
   };
 
   const handleSave = async () => {

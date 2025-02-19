@@ -45,7 +45,7 @@ const loginHandler = async (request: express.Request, response: express.Response
         response.status(400).json({ message: 'Invalid username or password' });
         return;
     }
-
+    
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
     response.json({ token });
   } catch (err) {

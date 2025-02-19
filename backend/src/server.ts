@@ -37,10 +37,10 @@ app.get("/tasks", authenticateJWT ,async (req, res) => {
 // POST /tasks - Create a new task
 app.post("/tasks", authenticateJWT,  async (req, res) => {
   try {
-    const { title, description, userId } = req.body;
+    const { title, description, id } = req.body;
     const { rows } = await pool.query(
       "INSERT INTO task (title, description, userId) VALUES ($1, $2, $3) RETURNING *",
-      [title, description, userId]
+      [title, description, id]
     );
     res.status(201).json(rows[0]);
   } catch (error) {
