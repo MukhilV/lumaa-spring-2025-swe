@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { Pool } from "pg";
+import authRoutes, { authenticateJWT } from './authRoutes';
 
 // dotenv.config({ path: "../.env" });
 dotenv.config();
@@ -9,6 +10,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/auth', authRoutes);
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -19,7 +21,7 @@ const pool = new Pool({
 });
 
 // GET /tasks - Retrieve tasks (optionally filtered by user)
-app.get("/tasks", async (req, res) => {
+app.get("/tasks", authenticateJWT ,async (req, res) => {
   try {
     const userId = req.query.userId ? parseInt(req.query.userId as string) : null;
     const query = userId ? "SELECT * FROM task WHERE userId = $1" : "SELECT * FROM task";
@@ -33,7 +35,7 @@ app.get("/tasks", async (req, res) => {
 });
 
 // POST /tasks - Create a new task
-app.post("/tasks", async (req, res) => {
+app.post("/tasks", authenticateJWT,  async (req, res) => {
   try {
     const { title, description, userId } = req.body;
     const { rows } = await pool.query(
@@ -48,7 +50,7 @@ app.post("/tasks", async (req, res) => {
 });
 
 // PUT /tasks/:id - Update a task
-app.put("/tasks/:id", async (req, res) => {
+app.put("/tasks/:id", authenticateJWT,  async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, isComplete } = req.body;
@@ -64,7 +66,7 @@ app.put("/tasks/:id", async (req, res) => {
 });
 
 // DELETE /tasks/:id - Delete a task
-app.delete("/tasks/:id", async (req, res) => {
+app.delete("/tasks/:id", authenticateJWT,  async (req, res) => {
   try {
     const { id } = req.params;
     await pool.query("DELETE FROM task WHERE id = $1", [id]);

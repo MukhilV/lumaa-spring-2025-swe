@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import TaskTile from "../components/tsx/TaskTile";
 import UpdateModal from "../components/tsx/UpdateModal";
 import CreateNewTask from "../components/tsx/CreateNewTask";
 import "../styles/styles.css";
+import { AuthContext } from "../context/AuthContext";
 
 interface Task {
   id?: number; // Optional since it's not assigned yet
@@ -18,13 +19,20 @@ const Dashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
+  const auth = useContext(AuthContext);
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.get<Task[]>("http://localhost:5000/tasks");
+      const response = await axios.get<Task[]>("http://localhost:5000/tasks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setTasks(response.data);
       setLoading(false);
     } catch (err) {
@@ -40,7 +48,12 @@ const Dashboard: React.FC = () => {
   const handleDeleteClick = async (task: Task) => {
     if (!task) return;
     try {
-      await axios.delete(`http://localhost:5000/tasks/${task.id}`);
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:5000/tasks/${task.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchTasks(); // Refresh task list
       handleCloseModal(); // Close modal
     } catch (err) {
@@ -56,12 +69,21 @@ const Dashboard: React.FC = () => {
   const handleSave = async () => {
     if (!selectedTask) return;
     try {
-      await axios.put(`http://localhost:5000/tasks/${selectedTask.id}`, selectedTask);
+      const token = localStorage.getItem("token");
+      await axios.put(`http://localhost:5000/tasks/${selectedTask.id}`, selectedTask,  {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchTasks(); // Refresh task list
       handleCloseModal(); // Close modal
     } catch (err) {
       console.error("Error updating task", err);
     }
+  };
+
+  const handleLogout = () => {
+    auth?.logout();
   };
 
   if (loading) return <p>Loading tasks...</p>;
@@ -83,6 +105,8 @@ const Dashboard: React.FC = () => {
         onUpdateClick={handleUpdateClick}
         onDeleteClick={handleDeleteClick} />)
       )}
+
+      <button onClick={handleLogout}> Logout </button>
 
       {selectedTask && (
         <UpdateModal

@@ -23,7 +23,12 @@ const CreateNewTask: React.FC<{ refreshTasks: () => void }> = ({ refreshTasks })
 
   const handleSave = async () => {
     try {
-      await axios.post("http://localhost:5000/tasks", newTask);
+      const token = localStorage.getItem("token");
+      await axios.post("http://localhost:5000/tasks", newTask, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       refreshTasks(); // Refresh task list after creation
       handleCloseModal(); // Close modal
     } catch (err) {
