@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
@@ -10,26 +10,21 @@ const Register: React.FC = () => {
 
   const handleRegister = async () => {
     try {
+      // setIsRegisterClicked(true);
       await axios.post('http://localhost:5000/auth/register', { username, password });
       alert('Registration successful. Please login to access your account');
 
-      // document.getElementById('reg_username')!.innerHTML = '';
-      // document.getElementById('reg_password')!.innerHTML = '';
-      // setUsername('');
-      // setPassword('');  
+      (document.getElementById('reg_username') as HTMLInputElement).value = '';
+      (document.getElementById('reg_password') as HTMLInputElement).value = '';
+
+      setUsername('');
+      setPassword('');  
 
       navigate('/home');
     } catch (err) {
       console.error('Registration failed', err);
     }
   };
-
-  useEffect(() => {
-    // Clear input fields when component mounts
-    setUsername('');
-    setPassword('');
-  }, []);
-
 
 
   return (

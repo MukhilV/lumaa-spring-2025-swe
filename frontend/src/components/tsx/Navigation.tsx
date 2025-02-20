@@ -11,7 +11,7 @@ const Navigation: React.FC<NavigationProps> = ({  onLogin, onLogout, onRegister 
     const isLoggedIn = sessionStorage.getItem('userId') != null;
     return (
         <nav className='navbar'>
-            <div className='nav-logo'>MyApp</div>
+            <div className='nav-logo'>LUMAA</div>
             <div className='nav-buttons'>
                 {isLoggedIn ? (
                     <button onClick={onLogout} className='nav-button'>Logout</button>

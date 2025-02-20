@@ -10,7 +10,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Ensure DATABASE_URL is set in .env
 });
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 // Register User
 router.post('/register', async (req, res) => {
