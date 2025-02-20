@@ -22,6 +22,7 @@ const Register: React.FC = () => {
 
       navigate('/home');
     } catch (err) {
+      alert("Registration failed. Either username already exists or server error. Try a different username or try again later.");
       console.error('Registration failed', err);
     }
   };

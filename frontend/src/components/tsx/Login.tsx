@@ -11,6 +11,11 @@ const Login: React.FC = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const resetFields = () => {
+    (document.getElementById('login_username') as HTMLInputElement).value = '';
+    (document.getElementById('login_password') as HTMLInputElement).value = '';
+  }
+
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:5000/auth/login', { username, password });
@@ -23,6 +28,8 @@ const Login: React.FC = () => {
       // Store userId in localStorage or context if needed
       sessionStorage.setItem("userId", decodedToken.id);
 
+      resetFields();
+
       setUsername('');
       setPassword('');  
 
@@ -31,12 +38,14 @@ const Login: React.FC = () => {
       console.error('Login failed', err);
 
       if (axios.isAxiosError(err) && err.response?.status === 400) {
-        alert('Invalid username or password');    
+        alert('Invalid username or password');  
+        resetFields();  
         return;
       }
 
       if (axios.isAxiosError(err) && err.response?.status === 500) {
-        alert('Internal server error. Please try again later');    
+        alert('Internal server error. Please try again later');  
+        resetFields();  
         return;
       }
 
