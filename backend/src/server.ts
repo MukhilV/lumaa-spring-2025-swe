@@ -24,7 +24,7 @@ const pool = new Pool({
 app.get("/tasks", authenticateJWT ,async (req, res) => {
   try {
     const userId = req.query.userId ? parseInt(req.query.userId as string) : null;
-    const query = userId ? "SELECT * FROM tasks WHERE userId = $1" : "SELECT * FROM task";
+    const query = userId ? "SELECT * FROM tasks WHERE userId = $1" : "SELECT * FROM tasks";
     const values = userId ? [userId] : [];
     const { rows } = await pool.query(query, values);
     res.json(rows);
