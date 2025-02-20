@@ -32,13 +32,6 @@ cd lumaa-spring-2025-swe
 
 ### 2. Setup Backend
 
-Navigate to the `backend` directory and install the dependencies:
-
-```sh
-cd backend
-npm install
-```
-
 Create a `.env` file in the `backend` directory and add your environment variables:
 
 ```
@@ -49,6 +42,13 @@ DB_PASS=admin
 DB_PORT=5432
 DATABASE_URL=postgres://postgres:admin@localhost:5432/taskmanagement
 JWT_SECRET=mysecretkey@123 
+```
+
+Navigate to the `backend` directory and install the dependencies:
+
+```sh
+cd backend
+npm install
 ```
 
 Start the backend server:
