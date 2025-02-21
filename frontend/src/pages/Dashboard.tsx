@@ -118,8 +118,6 @@ const Dashboard: React.FC = () => {
           onDeleteClick={handleDeleteClick} />)
         )}
 
-        {/* <button onClick={handleLogout}> Logout </button> */}
-
         {selectedTask && (
           <UpdateModal
             task={selectedTask}

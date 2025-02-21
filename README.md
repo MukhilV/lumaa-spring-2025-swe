@@ -105,3 +105,5 @@ Your migrations will be applied to the DB.
 - The frontend development server will be running at `http://localhost:3000`
 
 
+## Demo video of the application:
+Link: `https://drive.google.com/file/d/15JJjtskuahfsdfdmkBNNpBRGC8If4i6_/view?usp=sharing`

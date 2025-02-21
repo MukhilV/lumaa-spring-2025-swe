@@ -25,7 +25,7 @@ const Login: React.FC = () => {
       const decodedToken: { id: string; exp: number } = jwtDecode(response.data.token);
       console.log("User ID:", decodedToken.id);
 
-      // Store userId in localStorage or context if needed
+      // Store userId in sessionStorage
       sessionStorage.setItem("userId", decodedToken.id);
 
       resetFields();

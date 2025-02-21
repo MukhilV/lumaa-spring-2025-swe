@@ -28,7 +28,6 @@ router.post('/register', async (req, res) => {
 });
 
 // Login User
-// router.post('/userLogin', async (req: express.Request, res: express.Response) => {
 
 const loginHandler = async (request: express.Request, response: express.Response): Promise<void> => {
   const { username, password } = request.body;
