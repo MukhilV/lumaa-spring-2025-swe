@@ -105,5 +105,12 @@ Your migrations will be applied to the DB.
 - The frontend development server will be running at `http://localhost:3000`
 
 
-## Demo video of the application:
+## Demo video of the application
 Link: `https://drive.google.com/file/d/15JJjtskuahfsdfdmkBNNpBRGC8If4i6_/view?usp=sharing`
+
+
+## Salary Expectations
+I can work either as a full-time or a part-time intern.
+If it is a part time position, I would expect around $1200 to $1500 as stiphend.
+If it is a full time position, I would expect around $2400 to $3000 as stiphend.
+Thank you. Looking forward to hear from you. 
